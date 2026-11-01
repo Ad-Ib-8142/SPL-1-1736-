@@ -1,0 +1,24 @@
+{
+  "source_rows": 54,
+  "output_rows": 54,
+  "matched_road_point_proxies": 20,
+  "unmatched": 34,
+  "date_counts": {
+    "2024-07-12": 27,
+    "2024-09-03": 18,
+    "2024-10-04": 9
+  },
+  "positive_observations": 54,
+  "verified_negative_observations": 0,
+  "duplicate_observation_ids": 0,
+  "location_precision": "All present coordinates are OSM road-point proxies, never surveyed inundation coordinates",
+  "temporal_precision": "Most windows are report-context envelopes, not verified periods of continuous flooding",
+  "input_files": [
+    "dhaka_waterlogging_observations_2024.csv",
+    "dhaka_waterlogging_observations_2024_georeferenced_partial.csv",
+    "dhaka_waterlogging_matched_road_points.csv",
+    "roads.csv"
+  ],
+  "crs": "EPSG:4326 (WGS84 lat/lon)",
+  "project_scope": "provisional DNCC+DSCC; matched points sourced from existing study-area road points"
+}

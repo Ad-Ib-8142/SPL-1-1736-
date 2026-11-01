@@ -1,0 +1,70 @@
+Dhaka GSI — processed data dictionary
+
+BOUNDARY
+- metadata/DNCC_DSCC_Provisional_Boundary.gpkg
+  - source_corporation_polygons: two supplied polygons, DNCC and DSCC.
+  - combined_study_area: dissolved/unioned study polygon.
+  - CRS EPSG:32646; area approximately 304.7768 km².
+  - Lineage from embedded XML: ArcGIS Union of Dhaka_North and Dhaka_South dated 2018-03-12; metadata created 2023-09-28. Current official status unverified.
+
+ELEVATION
+- AW3D30_DNCC_DSCC_UTM46N_30m.tif and .asc: projected 30 m elevation raster, EPSG:32646.
+- AW3D30_DNCC_DSCC_EPSG4326_degrees.asc and AW3D30_DNCC_DSCC_provisional.tif: clipped geographic versions, EPSG:4326.
+- NoData=-32768 in processed raster. Source raster had no declared NoData value; source values within boundary retained.
+- ASC requires companion .prj; it is supplied. For grid indexing, x/y are metres in UTM 46N for the UTM ASC.
+
+WATERWAYS / DRAINAGE
+- HOTOSM_Waterways_DNCC_DSCC.gpkg: clipped OSM features, EPSG:4326; layers waterways_all, waterway_lines, water_polygons, waterway_points.
+- HOTOSM_Waterways_DNCC_DSCC_UTM46N.gpkg: same clipped features in EPSG:32646; layers include waterway_lines, drainage_lines, canal_river_stream_lines and water_polygons.
+- Dhaka_Waterway_Lines.geojson: actual line geometries in EPSG:4326.
+- Dhaka_Drain_Ditch_Lines.geojson: line features classified drain or ditch.
+- Dhaka_Canal_River_Stream_Lines.geojson: line features classified canal, river or stream.
+- OSM feature tags are not a surveyed hydraulic network. Missing width/depth/capacity/flow data remain unknown.
+- OSM CSV way rows contain representative coordinates only; they are not line geometries.
+
+HISTORICAL FLOOD
+- Separate GPKGs for 2004, 2007, 2014, 2016; EPSG:32646.
+- Original source attributes retained, plus source_year.
+- Clipped geometry may become MultiPolygon. Missing classification values are not imputed.
+- 2007 source contains duplicated ID values and duplicate/overlapping attribute columns; these are retained for traceability. One invalid source geometry was repaired before clipping.
+
+WEATHER / SOIL
+- Each variable has a *_locations_DNCC_DSCC.csv file and a *_hourly_DNCC_DSCC.csv file.
+- Location file stores location_id, latitude, longitude, elevation, timezone metadata, inside_study_area, easting_utm46n_m, northing_utm46n_m, source_crs.
+- Hourly file stores location_id, time and original variable columns/units.
+- 24 location IDs remain, representing only 5 unique coordinate pairs. Repeated IDs at identical coordinates are not 24 independent spatial stations.
+- humidity.csv actually contains precipitation (mm), not relative humidity; output is named precipitation_mislabeled_humidity.
+- Soil moisture depth columns are exactly identical across the retained observations; do not treat them as independent depth measurements.
+- Soil temperature at 0 cm retains missing values; no imputation performed.
+- Times are UTC/GMT; observations are hourly from 2022-01-02 00:00 to 2026-01-26 23:00.
+
+POINT CSV INFRASTRUCTURE
+- Original columns retained, plus easting_utm46n_m, northing_utm46n_m, source_crs and coordinate_semantics.
+- @type=node: node coordinate.
+- @type=way: exported representative coordinate only, not full line geometry.
+- These CSVs are point-reference data, not a substitute for the HOTOSM line geometries.
+
+NOT PROVIDED
+- No dedicated road network file was uploaded.
+- No historical flood-event catalogue was uploaded.
+- No verified underground stormwater pipe, culvert, outfall, drain depth, width or capacity dataset was supplied.
+- upazilas.csv and bd_shp.zip are administrative references, not city-boundary polygon sources for this workflow.
+
+SUPPLEMENTARY ORGANISATION
+- waste_infrastructure/: filtered waste-related CSV; not drainage.
+- weather_aux/: cloud cover, evaporation, surface pressure and wind time series; rainfall/ contains precipitation and rainfall datasets.
+
+
+ROAD FEATURE POINTS (added from roads.csv)
+- Source fields: @id, @lat, @lon, name, highway.
+- 14,516 input records; 13,873 point coordinates inside the provisional DNCC+DSCC boundary; 643 outside.
+- Seven highway classes are retained: residential, tertiary, secondary, primary, primary_link, secondary_link, tertiary_link.
+- CSV and GeoJSON outputs are in WGS84 EPSG:4326; GPKG point layer is EPSG:4326; WKT CSV is projected EPSG:32646.
+- 8,869 of 13,873 retained records have missing names; missing names remain blank.
+- Four duplicate coordinate pairs and zero duplicate @id values were found.
+- CRITICAL: each source record contains one coordinate only. No road LineString/MultiLineString, ordered node sequence, or network topology was supplied. This is a point dataset and cannot support routing, road length, network distance or connectivity analysis.
+
+DUPLICATE BOUNDARY UPLOAD (DCC(1).zip)
+- Independently inspected and compared to DCC.zip.
+- Both contain two Polygon features in EPSG:32646 with identical attributes and geometries.
+- DCC(1).zip is retained as an unchanged raw source copy. It does not replace or update the working boundary.

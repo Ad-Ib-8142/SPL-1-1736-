@@ -1,0 +1,28 @@
+Dhaka GSI — coordinate-system register
+Study area: combined DNCC + DSCC polygons from DCC.zip, used provisionally.
+Boundary lineage: supplied DCC_UTM.shp metadata records an ArcGIS Union of Dhaka_North and Dhaka_South on 2018-03-12; dataset metadata creation date 2023-09-28. Current official boundary currency is UNVERIFIED.
+Boundary CRS: EPSG:32646 (WGS 84 / UTM zone 46N); units metres.
+Combined boundary area calculated from supplied polygons: 304.7768 km².
+
+Analysis CRS:
+- EPSG:32646, WGS 84 / UTM zone 46N, metres. Used for boundary, flood polygons, projected waterways and projected DEM.
+- EPSG:4326, WGS 84 geographic coordinates, degrees. Preserved for source DEM clip, HOTOSM GeoJSON, CSV latitude/longitude and weather location metadata.
+
+Dataset source CRS:
+- AW3D30 source GeoTIFF: EPSG:4326; 1 arc-second geographic pixel spacing. Source vertical units/datum are not explicitly declared in raster tags.
+- HOTOSM waterways GeoJSON: EPSG:4326.
+- EO4SD flood polygons 2004/2007/2014/2016: EPSG:32646.
+- DCC.zip boundary: EPSG:32646.
+- water infrastructure and waste infrastructure CSVs: no CRS metadata; @lat/@lon interpreted as WGS84 geographic coordinates based on field names and numeric ranges. This is an inference, not explicit source metadata.
+- Open-Meteo CSV metadata: latitude/longitude fields; interpreted as WGS84; source files do not declare a formal CRS. Times are GMT/UTC.
+- upazilas.csv: no CRS metadata; coordinate columns appear to be latitude/longitude, but it is not used as a polygon boundary.
+
+Transformations:
+- AW3D30: clipped in EPSG:4326, then reprojected to EPSG:32646 at 30 m using bilinear resampling. NoData in processed raster is -32768.
+- HOTOSM: clipped in EPSG:4326; projected GeoPackage also produced in EPSG:32646.
+- CSV point coordinates: original latitude/longitude retained; easting_utm46n_m and northing_utm46n_m added using EPSG:4326 -> EPSG:32646.
+- EO4SD flood polygons were already EPSG:32646; clipped without CRS transformation.
+
+All outputs use the provisional boundary. They must not be represented as clipped to a currently verified official boundary until boundary currency is independently confirmed.
+
+- roads.csv: @lat/@lon interpreted as WGS84 EPSG:4326 from field names and value ranges; source CRS not explicitly declared. Point outputs projected to EPSG:32646 where WKT is supplied.

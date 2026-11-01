@@ -1,0 +1,53 @@
+Dhaka GSI — processing verification report
+
+Study boundary:
+- User-approved provisional union of DNCC + DSCC from DCC.zip.
+- 2 source polygons; both valid; EPSG:32646.
+- Union area: 304.7768 km2.
+- Embedded lineage: ArcGIS Union of Dhaka_North and Dhaka_South dated 2018-03-12; metadata creation date 2023-09-28.
+- Current official currency is unverified. Every processed spatial output is therefore labelled provisional.
+
+Processed spatial datasets:
+- DEM: source 14594 x 18481 Int16, EPSG:4326, 1 arc-second, no source NoData declared.
+  - Clipped WGS84 output: 667 x 845.
+  - Projected UTM 46N output: 627 x 867, 30 m cells, NoData=-32768, 338221 valid pixels.
+  - Elevation values inside boundary retained; min=-11 max=64; vertical units/datum not explicit in source tags.
+- HOTOSM: 430923 national features -> 3468 features intersect provisional boundary; geometry types {'LineString': 1836, 'Polygon': 1582, 'Point': 32, 'MultiLineString': 10, 'MultiPolygon': 8}.
+  - Lines: 1846; drain+ditch lines: 1543; canal+river+stream lines: 298.
+  - All output vector geometries tested and intersect the working boundary.
+- Water infrastructure CSV: 1722 -> 1711 point-coordinate records; 11 outside; 1653 retained records have @type=way and representative coordinates only.
+- Waste infrastructure CSV: 410 -> 408 records; 2 outside; supplementary only.
+- Historical flood polygons:
+  - 2004: 3410 -> 2267 features; invalid source geometries 0; output invalid 0.
+  - 2007: 3625 -> 2433 features; one invalid source geometry repaired; 69 duplicate IDs remain; output invalid 0.
+  - 2014: 3073 -> 2077 features; output invalid 0.
+  - 2016: 4543 -> 3136 features; output invalid 0.
+  - All four outputs are EPSG:32646 and all features intersect the working boundary.
+- Weather/soil:
+  - Each source: 30 location IDs and 1,069,920 hourly observations.
+  - Each processed source: 24 IDs and 855,936 observations retained.
+  - 5 unique coordinate pairs among 24 IDs; not 24 independent spatial stations.
+  - Time range: 2022-01-02 00:00 to 2026-01-26 23:00 UTC.
+  - Soil temperature 0 cm: 183,360 missing retained values; not imputed.
+  - Soil moisture depth columns are identical throughout the retained hourly file; do not treat as separate independent depth measurements.
+  - humidity.csv contains precipitation (mm), not relative humidity.
+- Roads: no source supplied; processed/roads remains empty.
+- Historical flood-event catalogue: no source supplied; processed/flood_events remains empty.
+- Dedicated surveyed drainage engineering attributes (pipe/culvert/outfall dimensions, connectivity, capacity): not supplied.
+
+Spatial verification:
+- All processed GeoPackage/GeoJSON features tested: zero features wholly outside the provisional boundary by intersection test.
+- Filtered CSV coordinate records tested: zero retained points outside the provisional boundary.
+- Raster masked to the provisional polygon; pixels outside polygon set to NoData.
+- These checks verify clipping to the supplied provisional geometry, not the official currency of that geometry.
+
+Data integrity:
+- Uploaded originals copied unchanged to data/raw/.
+- SHA-256 checksums are in metadata/raw_source_checksums_sha256.csv.
+- Missing values and duplicate source IDs are documented, not silently imputed or deleted.
+
+
+NEW UPLOAD VERIFICATION
+- DCC(1).zip: 2 features, EPSG:32646, same attributes and geometries as DCC.zip (exact feature-level equality); working boundary unchanged.
+- roads.csv: 14,516 records; valid coordinate values in all rows; 13,873 inside and 643 outside provisional DNCC+DSCC; 7 highway classes; no duplicate IDs; 4 duplicate coordinate pairs; 8,869 retained records with missing name.
+- Road outputs are POINT geometries generated from source coordinates only. The input does not contain road line geometries or connectivity. Road network readiness remains supplementary/not routable.

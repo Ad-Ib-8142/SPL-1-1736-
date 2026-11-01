@@ -1,0 +1,10 @@
+file,records,target_ids,unique_coordinates,outside_points,invalid_records,conflicting_ids,result
+cloudcovertotal_DNCC_DSCC_30.csv,1069920,30,30,4,0,0,FAIL
+evaporation_DNCC_DSCC_30.csv,1069920,30,30,4,0,0,FAIL
+precipitation_from_humidity_filename_DNCC_DSCC_30.csv,1069920,30,30,4,0,0,FAIL
+rain_DNCC_DSCC_30.csv,1069920,30,30,4,0,0,FAIL
+soil_moisture_DNCC_DSCC_30.csv,1069920,30,30,4,0,0,FAIL
+soil_temperature_DNCC_DSCC_30.csv,1069920,30,30,4,0,0,FAIL
+surface_pressure_DNCC_DSCC_30.csv,1069920,30,30,4,0,0,FAIL
+temperature_2m_DNCC_DSCC_30.csv,1069920,30,30,4,0,0,FAIL
+wind_DNCC_DSCC_30.csv,1069920,30,30,4,0,0,FAIL

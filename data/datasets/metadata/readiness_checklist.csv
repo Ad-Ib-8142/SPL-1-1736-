@@ -1,0 +1,12 @@
+dataset,readiness,reason
+Provisional DNCC+DSCC boundary,READY WITH LIMITATIONS,2018 lineage; current official currency unverified
+Elevation DEM,READY WITH LIMITATIONS,Clipped and projected; vertical datum/units not explicit
+Waterways,READY WITH LIMITATIONS,OSM line/polygon geometries clipped; completeness not guaranteed
+Drainage,READY WITH LIMITATIONS,OSM mapped drain/ditch lines; no verified hydraulic dimensions/capacity
+Historical flood extents,READY WITH LIMITATIONS,Four years clipped; source classification gaps/2007 duplicate IDs remain
+Rainfall,READY WITH LIMITATIONS,Hourly records clipped to 5 unique coordinate pairs
+Temperature,READY WITH LIMITATIONS,Hourly records clipped to 5 unique coordinate pairs
+Soil,READY WITH LIMITATIONS,Soil moisture depths identical; surface soil temperature has missing values
+Road network,SUPPLEMENTARY ONLY,"13,873 road-feature points clipped; no road line geometry, topology or connectivity. Not suitable for routing or road-network distance."
+Historical flood-event catalogue,NOT AVAILABLE,No dated event catalogue supplied
+Surveyed drainage engineering network,NOT AVAILABLE,No pipe/culvert/outfall dimensions or capacities supplied
